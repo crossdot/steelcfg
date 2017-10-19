@@ -1,6 +1,7 @@
 extern crate hidapi;
 
 mod devices;
+mod protocol;
 
 const VID: u16 = 0x1038;
 const PID: u16 = 0x1700;
@@ -23,10 +24,15 @@ fn main() {
     // let device = open_device(VID, PID);
 
     let data = [
+        0x00, // init?
+        0x05, // command
         0x00,
-        0x05, 0x00, 0x00, 
-        0x10, 0x10, 0x10,
-        0xff, 0x32, 0xc8, 0xc8, 0x00, 0x00, 0x01];
+        0x00, // led index
+        0x10, 0x10, 0x10, // color
+        0xff, 0x32,
+        0xc8, 0xc8, 0x00,
+        0x00, // led index
+        0x01];
     let res = device.send_feature_report(&data).unwrap();
     println!("{:#?}", res);
 }

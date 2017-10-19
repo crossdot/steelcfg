@@ -5,6 +5,12 @@ pub enum Type {
 	Color
 }
 
+/// The `ReportType` of command data.
+pub enum ReportType {
+	Command,
+	ReportFeature
+}
+
 pub struct Command {
     /// Command `name`.
 	pub name: &'static str,
@@ -17,14 +23,20 @@ pub struct Command {
     /// Bytes of usb command beginning.
     pub usb_command_end: Option<&'static [u8]>,
 	/// `Type` of command data.
-	pub data_type: Type
+	pub data_type: Type,
+	/// `ReportType` of command data.
+	pub report_type: ReportType
 }
 
 pub struct Device {
+    /// Name
+    name: &'static str,
     /// Vendor id
     vid: u16,
     /// Product id
     pid: u16,
+    /// Product id
+    interface_number: u16,
     /// Device supported command list
     commands: &'static [Command],
 }
@@ -32,8 +44,10 @@ pub struct Device {
 /// list of available `devices`.
 pub static DEVICE : &'static [Device] = &[
     Device {
+        name: "SteelSeries Rival 700 (Experimental)",
         vid: 0x1038,
         pid: 0x1700,
+        interface_number: 0,
         commands: &[
             Command {
                 name: "Wheel color",
@@ -42,6 +56,7 @@ pub static DEVICE : &'static [Device] = &[
                 usb_command_begin: &[0x05_u8, 0x00_u8, 0x01_u8],
                 usb_command_end: Some(&[0xff_u8, 0x32_u8, 0xc8_u8, 0xc8_u8, 0x00_u8, 0x01_u8, 0x01_u8]),
                 data_type: Type::Color,
+                report_type: ReportType::ReportFeature,
             },
             Command {
                 name: "Logo color",
@@ -50,6 +65,7 @@ pub static DEVICE : &'static [Device] = &[
                 usb_command_begin: &[0x05_u8, 0x00_u8, 0x00_u8],
                 usb_command_end: Some(&[0xff_u8, 0x32_u8, 0xc8_u8, 0xc8_u8, 0x00_u8, 0x00_u8, 0x01_u8]),
                 data_type: Type::Color,
+                report_type: ReportType::ReportFeature,
             }
         ]
     }
