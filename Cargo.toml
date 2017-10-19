@@ -1,0 +1,7 @@
+[package]
+name = "steelcfg"
+version = "0.1.0"
+authors = ["Vitaliy Pavlikov <warhotpoint@gmail.com>"]
+
+[dependencies]
+hidapi = "~0.4"
