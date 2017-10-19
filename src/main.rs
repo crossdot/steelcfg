@@ -28,18 +28,20 @@ fn main() {
     // let device = open_device(VID, PID);
 
     let data = [
-        0x00, // init?
+        0x00, // init report
         0x05, // command
-        0x00,
+        0x00, // ? [00]
         0x00, // led index
-        0x40, 0x40, 0x10, // color
-        0x10, 0x40, 0x10, // color
-        0x10, 0x10, 0x10, // ?? 3rd color not works
-        0xff, 0xff, // 0xff, 0x38
-        0xc8, 0xc8, 0x00,
+        0x10, 0x10, 0x10, // color 1
+        // 0x40, 0x40, 0x40, // color 2 [optional]
+        0x70, 0x00, // speed (little endian)
+        0x00, // ? [any]
+        0xc8, // if other value - color 2 is not usable
+        0x00, // [enable]
         0x00, // led index
-        0x01];
+        0x01, // [enable flag]
+    ];
     let res = device.send_feature_report(&data).unwrap();
-    println!("{:#?}", data);
-    println!("{:#?}", res);
+    println!("{:?}", data);
+    println!("{:?}", res);
 }
