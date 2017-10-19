@@ -6,6 +6,7 @@ const STEELSERIES_NUM_DPI: u16 = 2;
 const STEELSERIES_NUM_LED: u16 = 2;
 const STEELSERIES_DPI_MIN: u16 = 50;
 const STEELSERIES_DPI_MAX: u16 = 6500;
+const STEELSERIES_DPI_MULTIPLIER: u8 = 50;
 
 /* not sure these are used for */
 const STEELSERIES_REPORT_ID_1: u8 =	0x01;
