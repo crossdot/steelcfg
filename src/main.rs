@@ -45,3 +45,12 @@ fn main() {
     println!("{:?}", data);
     println!("{:?}", res);
 }
+
+#[test]
+fn testProto() {
+    use protocol::MouseProtocol;
+    use protocol::proto_rival500::Rival500;
+
+    let proto = Rival500{};
+    println!("{:?}", Rival500::NAME)
+}
