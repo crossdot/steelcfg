@@ -26,7 +26,7 @@ fn main() {
     let device = hid.open(VID, PID).unwrap();
 
     // let device = open_device(VID, PID);
-
+    /*
     let data = [
         0x00, // init report
         0x05, // command
@@ -44,6 +44,16 @@ fn main() {
     let res = device.send_feature_report(&data).unwrap();
     println!("{:?}", data);
     println!("{:?}", res);
+    */
+
+    use protocol::MouseProtocol;
+    use protocol::proto_rival500::Rival500;
+    println!("{:?}", Rival500::write_led(&device, 0, &[0x10, 0x10, 0x10, 0x30, 0x30, 0x30], 80));
+    println!("{:?}", Rival500::write_led(&device, 1, &[0x10, 0x10, 0x10, 0x30, 0x30, 0x30], 80));
+    println!("{:?}", Rival500::write_dpi(&device, 0, 1600));
+    println!("{:?}", Rival500::write_dpi(&device, 1, 3200));
+    println!("{:?}", Rival500::write_report_rate(&device, 1000));
+    println!("{:?}", Rival500::save(&device));
 }
 
 #[test]

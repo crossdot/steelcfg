@@ -26,6 +26,7 @@ fn test_tolittle() {
     let arr = &[1, 0];
     let num = from_big_endian(arr, 2);
     assert_eq!(num, 256);
-    let arr_le = to_little_endian(num);
+    
+    let arr_le = to_little_endian(1200);
     assert_eq!(arr_le, &[0, 1]);
 } 

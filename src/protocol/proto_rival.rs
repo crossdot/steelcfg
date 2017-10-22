@@ -24,13 +24,16 @@ const ID_SAVE: u8 = 0x09;
 pub struct Rival310 {}
 impl MouseProtocol for Rival310 {
     const NAME: &'static str = "rival, 100, 300, 300csgofadeedition, 300csgohyperbeastedition";
-    fn write_led(hid_device: HidDevice, led_index: u8, colors: &[u8], speed: u16) -> Result<(), &'static str> {
+    fn write_led(hid_device: &HidDevice, led_index: u8, colors: &[u8], speed: u16) -> Result<(), &'static str> {
         Ok(())
     }
-    fn write_dpi(hid_device: HidDevice, res_index: u8, dpi: u16) -> Result<(), &'static str> {
+    fn write_dpi(hid_device: &HidDevice, res_index: u8, dpi: u16) -> Result<(), &'static str> {
         Ok(())
     }
-    fn write_report_rate(hid_device: HidDevice, hz: u16) -> Result<(), &'static str> {
+    fn write_report_rate(hid_device: &HidDevice, hz: u16) -> Result<(), &'static str> {
+        Ok(())
+    }
+    fn save(hid_device: &HidDevice) -> Result<(), &'static str> {
         Ok(())
     }
 }

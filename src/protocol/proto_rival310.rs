@@ -23,7 +23,7 @@ const ID_SAVE: u8 = 0x59;
 pub struct Rival310 {}
 impl MouseProtocol for Rival310 {
     const NAME: &'static str = "rival 310";
-    fn write_led(hid_device: HidDevice, led_index: u8, colors: &[u8], speed: u16) -> Result<(), &'static str> {
+    fn write_led(hid_device: &HidDevice, led_index: u8, colors: &[u8], speed: u16) -> Result<(), &'static str> {
         // not sure why the rate is set for the steady color or why it is different for the two LEDs
         let rate = if led_index == 0 { 10000 } else { 5000 }; /* 0x1027 or 0x8813 */
         let rate_le = utils::to_little_endian(rate);
@@ -61,33 +61,27 @@ impl MouseProtocol for Rival310 {
         Ok(res)
     }
     
-    fn write_dpi(hid_device: HidDevice, res_index: u8, dpi: u16) -> Result<(), &'static str> {
+    fn write_dpi(hid_device: &HidDevice, res_index: u8, dpi: u16) -> Result<(), &'static str> {
         let mut buf: [u8; REPORT_SIZE] = [0; REPORT_SIZE];
         buf[0] = ID_DPI;
         buf[2] = res_index + 1;
         buf[3] = (dpi / 100 - 1) as u8;
         buf[6] = 0x42; /* not sure if needed */
 
-        let mut data = vec![
-            0x00, // init report
-        ];
-        data.extend(&buf[..]);
-
-        let res = hid_device.send_feature_report(&data).unwrap();
-        Ok(res)
+        let res = hid_device.write(&buf).unwrap();
+        Ok(())
     }
     
-    fn write_report_rate(hid_device: HidDevice, hz: u16) -> Result<(), &'static str> {
+    fn write_report_rate(hid_device: &HidDevice, hz: u16) -> Result<(), &'static str> {
         let mut buf: [u8; REPORT_SIZE] = [0; REPORT_SIZE];
-        buf[0] = ID_DPI;
+        buf[0] = ID_REPORT_RATE;
         buf[2] = (1000 / hz) as u8;
 
-        let mut data = vec![
-            0x00, // init report
-        ];
-        data.extend(&buf[..]);
-
-        let res = hid_device.send_feature_report(&data).unwrap();
-        Ok(res)
+        let res = hid_device.write(&buf).unwrap();
+        Ok(())
+    }
+    
+    fn save(hid_device: &HidDevice) -> Result<(), &'static str> {
+        Ok(())
     }
 }
