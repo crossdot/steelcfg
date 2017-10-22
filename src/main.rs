@@ -48,19 +48,19 @@ fn main() {
 
     use protocol::MouseProtocol;
     use protocol::proto_rival500::Rival500;
-    println!("{:?}", Rival500::write_led(&device, 0, &[0x10, 0x10, 0x10, 0x30, 0x30, 0x30], 80));
-    println!("{:?}", Rival500::write_led(&device, 1, &[0x10, 0x10, 0x10, 0x30, 0x30, 0x30], 80));
-    println!("{:?}", Rival500::write_dpi(&device, 0, 1600));
-    println!("{:?}", Rival500::write_dpi(&device, 1, 3200));
-    println!("{:?}", Rival500::write_report_rate(&device, 1000));
+    println!("{:?}", Rival500::write_led(&device, 0, &[0x10, 0x10, 0x10, 0x30, 0x30, 0x30], 800));
+    // println!("{:?}", Rival500::write_led(&device, 1, &[0x10, 0x10, 0x10, 0x30, 0x30, 0x30], 800));
+    // println!("{:?}", Rival500::write_dpi(&device, 0, 1600));
+    // println!("{:?}", Rival500::write_dpi(&device, 1, 3200));
+    // println!("{:?}", Rival500::write_report_rate(&device, 1000));
     println!("{:?}", Rival500::save(&device));
 }
 
 #[test]
-fn testProto() {
-    use protocol::MouseProtocol;
-    use protocol::proto_rival500::Rival500;
-
-    let proto = Rival500{};
-    println!("{:?}", Rival500::NAME)
+fn testSignedNumeric() {
+    // let var1 = 2_i8;
+    // let raw_bytes : [i8; 8] = unsafe {std::mem::transmute(var1)};
+    // for byte in &raw_bytes {
+    //     println!("{}", byte);
+    // }
 }
